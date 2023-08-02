@@ -4,10 +4,25 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public MemoryCard firstSelectedCard;
-    public MemoryCard secondSelectedCard;
+    public AudioSource audioSource;
+    public AudioClip clipCardUp;
+    public AudioClip clipCardDown;
+    public AudioClip clipCardMatch;
+
+    private MemoryCard firstSelectedCard;
+    private MemoryCard secondSelectedCard;
 
     private bool canClick = true;
+
+    public GameObject[] allCards;
+
+    private void Awake()
+    {
+        foreach(GameObject card in allCards)
+        {
+            Debug.Log(card.transform.position);
+        }
+    }
 
     public void CardClicked(MemoryCard card)
     {
@@ -18,6 +33,7 @@ public class GameManager : MonoBehaviour
 
         card.targetRotation = 90;
         card.targetHeight = 0.05f;
+        audioSource.PlayOneShot(clipCardUp);
 
         if(firstSelectedCard == null)
         {
@@ -40,6 +56,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(firstSelectedCard.gameObject);
             Destroy(secondSelectedCard.gameObject);
+            audioSource.PlayOneShot(clipCardMatch);
         }
 
         else
@@ -49,6 +66,8 @@ public class GameManager : MonoBehaviour
 
             firstSelectedCard.targetHeight = 0.01f;
             secondSelectedCard.targetHeight = 0.01f;
+
+            audioSource.PlayOneShot(clipCardDown);
         }
 
         firstSelectedCard = null;

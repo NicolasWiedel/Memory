@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        card.transform.localEulerAngles = new Vector3(90, 0, 0);
+        card.targetRotation = 90;
         card.targetHeight = 0.05f;
 
         if(firstSelectedCard == null)
@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
 
         else
         {
-            firstSelectedCard.transform.localEulerAngles = new Vector3(-90, 0, 0);
-            secondSelectedCard.transform.localEulerAngles = new Vector3(-90, 0, 0);
+            firstSelectedCard.targetRotation = -90;
+            secondSelectedCard.targetRotation = -90;
 
             firstSelectedCard.targetHeight = 0.01f;
             secondSelectedCard.targetHeight = 0.01f;

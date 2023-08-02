@@ -17,7 +17,12 @@ public class MemoryCard : MonoBehaviour
 
     private void Update()
     {
+        // move up/down
         float heightValue = Mathf.MoveTowards(transform.position.y, targetHeight, 1 * Time.deltaTime);
-        transform.position = new Vector3(transform.position.x, heightValue, transform.position.y);
+        transform.position = new Vector3(transform.position.x, heightValue, transform.position.z);
+
+        // rotate
+        Quaternion rotationValue = Quaternion.Euler(targetRotation, 0, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotationValue, 10 * Time.deltaTime);
     }
 }

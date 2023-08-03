@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,18 +16,26 @@ public class GameManager : MonoBehaviour
     private bool canClick = true;
 
     public GameObject[] allCards;
-
+    public List<Vector3> allPositions = new List<Vector3>();
     private void Awake()
     {
         foreach(GameObject card in allCards)
         {
-            Debug.Log(card.transform.position);
+            allPositions.Add(card.transform.position);
+        }
+
+        System.Random randomNumber = new System.Random();
+        allPositions = allPositions.OrderBy(position => randomNumber.Next()).ToList();
+
+        for (int i = 0; i < allCards.Length; i++)
+        {
+            allCards[i].transform.position = allPositions[i];
         }
     }
 
     public void CardClicked(MemoryCard card)
     {
-        if(canClick == false)
+        if(canClick == false || card == firstSelectedCard)
         {
             return;
         }
